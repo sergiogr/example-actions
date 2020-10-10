@@ -38,7 +38,7 @@ jobs:
             --discard true                        \
             ./juice-shop.har)
           SCAN_ID=$(nexploit-cli scan:run                                                 \
-            --test csrf dom_xss header_security secret_tokens                             \
+            --test dom_xss                                                                \
             --name "🥤 Juice-Shop for a '${GITHUB_REF##*/}' branch #${GITHUB_RUN_NUMBER}" \
             --archive $FILE_ID                                                            \
             --repeater ${{ secrets.REPEATER }}                                            \
@@ -53,7 +53,7 @@ jobs:
             --interval 30s                        \
             --timeout 20m                         \
             --token ${{ secrets.NEXPLOIT_TOKEN }} \
-            --breakpoint medium_issue $SCAN_ID
+            --breakpoint high_issue $SCAN_ID
       - name: Stop Scan 🛑
         continue-on-error: true
         if: ${{ always() }}
